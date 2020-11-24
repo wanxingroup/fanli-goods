@@ -28,7 +28,7 @@ else
 	EXTLDFLAGS =
 endif
 
-all: build test
+all: build
 
 build: build_service_cross_only
 

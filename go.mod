@@ -26,3 +26,5 @@ require (
 	google.golang.org/grpc v1.30.0
 	gopkg.in/asaskevich/govalidator.v9 v9.0.0-20180315120708-ccb8e960c48f // indirect
 )
+
+replace dev-gitlab.wanxingrowth.com/wanxin-go-micro/base => github.com/wanxingroup/base v0.2.27
