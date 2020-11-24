@@ -1,0 +1,388 @@
+syntax = "proto3";
+
+package goods.pkg.rpc.protos;
+
+option go_package = "protos";
+
+import "goods_common.proto";
+
+service SPU {
+    // 获取SPU信息
+    rpc GetSpu (GetSpuRequest) returns (GetSpuReply) {
+    }
+    // 批量获取SPU信息
+    rpc GetSpus (GetSpusRequest) returns (GetSpusReply) {
+    }
+    // 获取 SPU 列表信息
+    rpc GetSPUList (GetSPUListRequest) returns (GetSPUListReply) {
+    }
+    // 获取热门 SPU 列表信息
+    rpc GetHotSPUList (GetHotSPUListRequest) returns (GetHotSPUListReply) {
+    }
+    // 获取SKU信息
+    rpc GetSku (GetSkuRequest) returns (GetSkuReply) {
+    }
+    // 批量获取SKU信息
+    rpc GetSkus (GetSkusRequest) returns (GetSkusReply) {
+    }
+    // 获取SKU库存
+    rpc GetSkuStock (GetSkuStockRequest) returns (GetSkuStockReply) {
+    }
+    // 扣减SKU库存
+    rpc DecrementSkuStock (DecrementSkuStockRequest) returns (DecrementSkuStockReply) {
+    }
+    // 还原SKU库存
+    rpc RestoreSkuStock (RestoreSkuStockRequest) returns (RestoreSkuStockReply) {
+    }
+    // 创建 SPU
+    rpc CreateSPU (CreateSPURequest) returns (CreateSPUReply) {
+    }
+    // 更新 SPU
+    rpc UpdateSPU (UpdateSPURequest) returns (UpdateSPUReply) {
+    }
+    // 更新 SPU 库存
+    rpc UpdateStock (UpdateStockRequest) returns (UpdateStockReply) {
+    }
+    // 更新 SPU 状态
+    rpc UpdateStatus (UpdateStatusRequest) returns (UpdateStatusReply) {
+    }
+}
+
+// SPU信息
+message SPUInformation {
+
+    // 店铺 ID
+    uint64 shopId = 1;
+    // SPU ID
+    uint64 spuId = 2;
+    // 分类 ID
+    uint64 categoryId = 3;
+    // 标题
+    string name = 4;
+    // 价格（单位：分）
+    uint64 price = 5;
+    // 单位
+    string unit = 6;
+    // 商品图片
+    repeated string images = 7;
+    // 详情内容（富文本）
+    string detailText = 8;
+    // 初始库存
+    uint64 stock = 9;
+    // 是否支持7日无条件退货
+    bool support7DayReturnGoods = 10;
+    // 条形码
+    string barcode = 11;
+    // 是否上架
+    bool isOnline = 12;
+    // 创建时间
+    int64 createTime = 13;
+    // 更新时间
+    int64 updateTime = 14;
+    // SKU 列表
+    repeated SKUInformationStruct skuList = 15;
+    // 会员价
+    uint64 vipPrice = 16;
+    // 积分价
+    uint64 point = 17;
+    // 成本价
+    uint64 settlePrice = 18;
+    // 成本价
+    uint64 costPrice = 19;
+    // 是否热门
+    bool isHot = 20;
+    // 排序
+    uint32 sort = 21;
+}
+
+message SKUInformationStruct {
+    // SKU ID
+    uint64 skuId = 1;
+    // 原价，单位：分
+    uint64 originalPrice = 2;
+    // 现价，单位：分
+    uint64 price = 3;
+    // 当前库存（SKU库存）
+    uint64 stock = 4;
+    // 会员价
+    uint64 vipPrice = 5;
+    // 积分价
+    uint64 point = 6;
+    // SKU NAME
+    string name = 7;
+}
+
+message SKUInformation {
+    // SKU ID
+    uint64 skuId = 1;
+    // SPU ID
+    uint64 spuId = 2;
+    // 原价，单位：分
+    uint64 originalPrice = 3;
+    // 现价，单位：分
+    uint64 price = 4;
+    // 当前库存（SKU库存）
+    uint64 stock = 5;
+    // SPU
+    SPUInformation spu = 6;
+    // SKU 名称
+    string name = 7;
+    // 会员价
+    uint64 vipPrice = 8;
+    // 积分价
+    uint64 point = 9;
+}
+
+message GetSpuRequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // SPU ID
+    uint64 spuId = 2;
+}
+
+message GetSpuReply {
+    // 商品信息
+    SPUInformation spu = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message GetSpusRequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // SPU ID
+    repeated uint64 spuIds = 2;
+}
+
+message GetSpusReply {
+    // 商品信息
+    map<uint64, SPUInformation> spus = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message GetSPUListRequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // SPU 名称搜索（模糊搜索）
+    string nameFuzzySearch = 2;
+    // 页码
+    uint64 page = 3;
+    // 分页大小
+    uint64 pageSize = 4;
+    // 状态
+    repeated uint32 status = 5;
+    // 最后一条 Id
+    uint64 lastSpuId = 6;
+    // 是否热门
+    bool isHot = 7;
+}
+
+message GetSPUListReply {
+    // 商品信息
+    repeated SPUInformation Spus = 1;
+    // 总记录数
+    uint64 count = 2;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message GetHotSPUListRequest {
+    uint64 shopId = 1;
+}
+
+message GetHotSPUListReply {
+    Error err = 1;
+    // 商品信息
+    repeated SPUInformation Spus = 2;
+}
+
+message GetSkuRequest {
+    // SKU ID
+    uint64 skuId = 1;
+}
+
+message GetSkuReply {
+    // SKU 信息
+    SKUInformation sku = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message GetSkusRequest {
+    // SKU IDs
+    repeated uint64 skuIds = 1;
+}
+
+message GetSkusReply {
+    // SKU 信息
+    map<uint64, SKUInformation> skus = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message GetSkuStockRequest {
+    // SKU ID
+    uint64 skuId = 1;
+}
+
+message GetSkuStockReply {
+    // 当前库存
+    uint64 stock = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message DecrementSkuStockRequest {
+    // SKU ID
+    uint64 skuId = 1;
+    // 扣减件数
+    uint64 count = 2;
+}
+
+message DecrementSkuStockReply {
+    // 扣减后件数
+    uint64 stock = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message RestoreSkuStockRequest {
+    // SKU ID
+    uint64 skuId = 1;
+    // 还原件数
+    uint64 count = 2;
+}
+
+message RestoreSkuStockReply {
+    // 还原后件数
+    uint64 stock = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message CreateSPURequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // 分类 ID
+    uint64 categoryId = 2;
+    // 商品名
+    string name = 3;
+    // 价格（单位：分）
+    uint64 price = 4;
+    // 单位
+    string unit = 5;
+    // 商品图片
+    repeated string images = 6;
+    // 详情内容（富文本）
+    string detailText = 7;
+    // 初始库存
+    uint64 stock = 8;
+    // 是否支持7日无条件退货
+    bool support7DayReturnGoods = 9;
+    // 条形码
+    string barcode = 10;
+    // 创建人
+    uint64 createdBy = 11;
+    // 会员价
+    uint64 vipPrice = 12;
+    // 积分价
+    uint64 point = 13;
+    // 结算价
+    uint64 settlePrice = 14;
+    // 成本价
+    uint64 costPrice = 15;
+    // 是否热门
+    bool isHot = 16;
+    // 排序
+    uint32 sort = 17;
+
+}
+
+message CreateSPUReply {
+    // 商品信息
+    SPUInformation spu = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message UpdateSPURequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // 商品 ID
+    uint64 spuId = 2;
+    // 商品名
+    string name = 3;
+    // 价格（单位：分）
+    uint64 price = 4;
+    // 单位
+    string unit = 5;
+    // 商品图片
+    repeated string images = 6;
+    // 详情内容（富文本）
+    string detailText = 7;
+    // 是否支持7日无条件退货
+    bool support7DayReturnGoods = 8;
+    // 条形码
+    string barcode = 9;
+    // 更新人
+    uint64 updatedBy = 10;
+    // 分类 Id
+    uint64 categoryId = 11;
+    // 会员价
+    uint64 vipPrice = 12;
+    // 积分价
+    uint64 point = 13;
+    // 结算价
+    uint64 settlePrice = 14;
+    // 成本价
+    uint64 costPrice = 15;
+    // 是否热门
+    bool isHot = 16;
+    // 排序
+    uint32 sort = 17;
+}
+
+message UpdateSPUReply {
+    // 商品信息
+    SPUInformation spu = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message UpdateStockRequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // 商品 ID
+    uint64 spuId = 2;
+    // 初始库存
+    uint64 stock = 3;
+}
+
+message UpdateStockReply {
+    // 变更后件数
+    uint64 stock = 1;
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+message UpdateStatusRequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // 商品 ID
+    uint64 spuId = 2;
+    // 状态（1 => 下架；2 => 上架； 9 => 删除）
+    uint64 status = 3;
+}
+
+message UpdateStatusReply {
+    // 错误信息（没有错误时为nil）
+    Error err = 9;
+}
+
+enum SPUStatus{
+    default = 0; // enum 默认需要从 0 开始
+    offline = 1; // 下架
+    online  = 2; // 上架
+    delete  = 9; // 删除
+}

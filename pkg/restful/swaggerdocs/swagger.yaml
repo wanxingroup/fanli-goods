@@ -1,0 +1,12 @@
+host: localhost:8080
+info:
+  contact:
+    email: liujian@wanxingrowth.com
+    name: danson.liu
+    url: http://dev-gitlab.wanxingrowth.com/fanli/goods/issues
+  description: The framework use for init new service.
+  license: {}
+  title: shopping-mall-product-service
+  version: "0.1"
+paths: {}
+swagger: "2.0"

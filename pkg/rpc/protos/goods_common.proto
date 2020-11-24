@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package goods.pkg.rpc.protos;
+
+option go_package = "protos";
+
+// 错误信息
+message Error {
+    // 错误码
+    uint32 errorCode = 1;
+    // 展示给开发这记录日志用的错误信息
+    string errorMessageForDeveloper = 2;
+    // 展示给用户查看的错误信息
+    string errorMessageForUser = 3;
+}

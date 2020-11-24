@@ -1,0 +1,16 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "The framework use for init new service.",
+        "title": "shopping-mall-product-service",
+        "contact": {
+            "name": "danson.liu",
+            "url": "http://dev-gitlab.wanxingrowth.com/fanli/goods/issues",
+            "email": "liujian@wanxingrowth.com"
+        },
+        "license": {},
+        "version": "0.1"
+    },
+    "host": "localhost:8080",
+    "paths": {}
+}

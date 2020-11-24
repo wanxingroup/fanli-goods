@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package goods.pkg.rpc.protos;
+
+option go_package = "protos";
+
+import "goods_common.proto";
+
+service Category {
+    rpc CreateCategory (CreateCategoryRequest) returns (CreateCategoryReply) {
+    }
+    rpc UpdateCategory (UpdateCategoryRequest) returns (UpdateCategoryReply) {
+    }
+    rpc GetCategory (GetCategoryRequest) returns (GetCategoryReply) {
+    }
+    rpc GetCategoryList (GetCategoryListRequest) returns (GetCategoryListReply) {
+    }
+    rpc DeleteCategory (DeleteCategoryRequest) returns (DeleteCategoryReply) {
+    }
+}
+
+message CreateCategoryRequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // 父类目ID
+    uint64 parentId = 2;
+    // 名称
+    string name = 3;
+    // 描述
+    string description = 4;
+    // 排序
+    int64 sort = 5;
+    // 创建人
+    uint64 createdBy = 6;
+}
+
+message CreateCategoryReply {
+    // 分类信息
+    CategoryInformation category = 1;
+    // 错误信息
+    Error err = 2;
+}
+
+message UpdateCategoryRequest {
+    // 分类 ID
+    uint64 categoryId = 1;
+    // 店铺 ID
+    uint64 shopId = 2;
+    // 名称
+    string name = 3;
+    // 描述
+    string description = 4;
+    // 排序
+    int64 sort = 5;
+    // 更新人
+    uint64 updatedBy = 6;
+}
+
+message UpdateCategoryReply {
+    // 分类信息
+    CategoryInformation category = 1;
+    // 错误信息
+    Error err = 2;
+}
+
+message GetCategoryRequest {
+    // 分类 ID
+    uint64 categoryId = 1;
+    // 店铺 ID
+    uint64 shopId = 2;
+}
+
+message GetCategoryReply {
+    // 分类信息
+    CategoryInformation category = 1;
+    // 错误信息
+    Error err = 2;
+}
+
+message GetCategoryListRequest {
+    // 店铺 ID
+    uint64 shopId = 1;
+    // 父分类 ID（0表示根）
+    uint64 parentCategoryId = 2;
+}
+
+message GetCategoryListReply {
+    // 分类信息
+    repeated CategoryInformation category = 1;
+    // 错误信息
+    Error err = 2;
+}
+
+message DeleteCategoryRequest {
+    // 分类 ID
+    uint64 categoryId = 1;
+    // 店铺 ID
+    uint64 shopId = 2;
+    // 更新人
+    uint64 updatedBy = 3;
+}
+
+message DeleteCategoryReply {
+    // 错误信息
+    Error err = 1;
+}
+
+message CategoryInformation {
+    
+    // 分类 ID
+    uint64 categoryId = 1;
+    // 店铺 ID
+    uint64 shopId = 2;
+    // 父类目ID
+    uint64 parentId = 3;
+    // 名称
+    string name = 4;
+    // 描述
+    string description = 5;
+    // 排序
+    int64 sort = 6;
+    // 标记值
+    string key = 7;
+    // 层级
+    uint64 level = 8;
+    // 结点路径，逗号分隔
+    string path = 9;
+    // 类目下非销售属性是否可自定义
+    bool propertyEditable = 10;
+    // 类目下商品单位
+    string unit = 11;
+    // 分类状态： 1: 正常, 9: 删除
+    uint64 status = 12;
+}

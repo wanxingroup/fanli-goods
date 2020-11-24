@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package goods.pkg.rpc.protos;
+
+option go_package = "protos";
+
+// Ping service definition.
+service StatusController {
+    rpc Ping (PingRequest) returns (PingReply) {
+    }
+}
+
+message PingRequest {
+    string message = 1;
+}
+
+message PingReply {
+    string message = 1;
+}
