@@ -1,4 +1,4 @@
-module dev-gitlab.wanxingrowth.com/fanli/goods
+module dev-gitlab.wanxingrowth.com/fanli/goods/v2
 
 go 1.13
 
